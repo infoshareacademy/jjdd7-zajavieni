@@ -1,8 +1,11 @@
 package com.isa.zajavieni.menu;
 
 import com.isa.zajavieni.repository.EventList;
+import com.isa.zajavieni.repository.FavouriteEventList;
+import com.isa.zajavieni.service.ConsoleCleaner;
 import com.isa.zajavieni.service.EventPrinter;
 
+import com.isa.zajavieni.service.FavouriteEventPrinter;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.Scanner;
@@ -17,17 +20,19 @@ public class MainMenu {
         choiceMenu(choice);
     }
 
-    private void printTextMainMenu() {
+    private void printTextMainMenu() throws IOException {
+        ConsoleCleaner.cleanConsole();
+        FavouriteEventPrinter favouriteEventPrinter = new FavouriteEventPrinter();
+        favouriteEventPrinter.printFavouriteEvent(FavouriteEventList.getFavouriteEventList());
         System.out.println(bh.toString());
-        System.out.println();
-        System.out.println("     ****************************************");
-        System.out.println("     *                 MENU                 *");
-        System.out.println("     ****************************************");
-        System.out.println("     1. Lista wszystkich wydarzeń");
-        System.out.println("     2. Wyszukaj wydarzenie ");
-        System.out.println("     3. Twoje ulubione wydarzenia ");
-        System.out.println("     4. Zarządzaj wydarzeniami");
-        System.out.println("     0. Koniec");
+        System.out.println("\t****************************************");
+        System.out.println("\t*                 MENU                 *");
+        System.out.println("\t****************************************");
+        System.out.println("\t1. Lista wszystkich wydarzeń");
+        System.out.println("\t2. Wyszukaj wydarzenie ");
+        System.out.println("\t3. Twoje ulubione wydarzenia ");
+        System.out.println("\t4. Zarządzaj wydarzeniami");
+        System.out.println("\t0. Koniec");
     }
 
     private void choiceMenu(String choice) throws IOException, ParseException {

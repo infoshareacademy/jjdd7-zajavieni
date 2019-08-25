@@ -2,6 +2,7 @@ package com.isa.zajavieni.service;
 
 import com.isa.zajavieni.jsonclasses.Event;
 
+import com.isa.zajavieni.repository.FavouriteEventList;
 import java.io.IOException;
 import java.time.Instant;
 import java.util.Comparator;
@@ -15,6 +16,9 @@ public class EventPrinter {
   public static final String ANSI_ORANGE = "\u001b[38;5;208m";
 
   public void printListOfEvents(List<Event> eventList) throws IOException {
+    ConsoleCleaner.cleanConsole();
+    FavouriteEventPrinter favouriteEventPrinter = new FavouriteEventPrinter();
+    favouriteEventPrinter.printFavouriteEvent(FavouriteEventList.getFavouriteEventList());
     List<Event> eventsList = eventList.stream()
         .sorted(Comparator.comparing(Event::getStartDate))
         .collect(Collectors.toList());

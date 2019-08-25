@@ -3,7 +3,9 @@ package com.isa.zajavieni.menu;
 import com.isa.zajavieni.jsonclasses.Event;
 import com.isa.zajavieni.repository.EventList;
 import com.isa.zajavieni.repository.FavouriteEventList;
+import com.isa.zajavieni.service.ConsoleCleaner;
 import com.isa.zajavieni.service.EventPrinter;
+import com.isa.zajavieni.service.FavouriteEventPrinter;
 import com.isa.zajavieni.service.FavouriteEventsDao;
 
 import java.io.IOException;
@@ -14,6 +16,7 @@ import java.util.Scanner;
 public class FavouriteEventMenu {
 
   FavouriteEventsDao favouriteEventsDao = new FavouriteEventsDao();
+  String homeOnly = "true";
 
   public void printFavouriteMenu() throws IOException, ParseException {
     printTextFavouriteMenu();
@@ -22,7 +25,11 @@ public class FavouriteEventMenu {
     printFavouriteMenu(choice);
   }
 
-  private void printTextFavouriteMenu() {
+  private void printTextFavouriteMenu() throws IOException {
+    ConsoleCleaner.cleanConsole();
+    FavouriteEventPrinter favouriteEventPrinter = new FavouriteEventPrinter();
+    favouriteEventPrinter
+        .printFavouriteEventConfig(FavouriteEventList.getFavouriteEventList(), homeOnly);
     System.out.println("\tCo chcesz zrobić?");
     System.out.println("\t1. Wyświetl ulubione wydarzenia");
     System.out.println("\t2. Dodaj wydarzenie do ulubionych");
@@ -34,6 +41,7 @@ public class FavouriteEventMenu {
     EventPrinter eventPrinter = new EventPrinter();
     switch (choice) {
       case "1":
+        ConsoleCleaner.cleanConsole();
         new EventPrinter().printListOfEvents(FavouriteEventList.getFavouriteEventList());
         if (FavouriteEventList.getFavouriteEventList().size() == 0) {
           System.out.println("Brak wydarzeń na liście ulubionbych");
@@ -92,6 +100,7 @@ public class FavouriteEventMenu {
           System.out.println("Poprawnie dodano wydarzenie do ulubionych");
           correctAdded = true;
           break;
+
         }
       }
       if (correctAdded == false) {
@@ -131,9 +140,6 @@ public class FavouriteEventMenu {
         System.out.println("Poprawnie usunięto wydarzenie z ulubionych");
         correctRemove = true;
         break;
-      } else {
-        System.out.println("Wpisano ID nieprzypisane do żadnego wydarzenia. Wpisz ponownie ID");
-        prepareToRemovingFavouriteEvent();
       }
     }
     if (correctRemove == false) {
