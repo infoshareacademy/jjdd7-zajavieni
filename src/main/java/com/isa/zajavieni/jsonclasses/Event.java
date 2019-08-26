@@ -5,8 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Date;
 import java.util.List;
 
-
 public class Event {
+
     @JsonProperty("id")
     private Long eventId;
 

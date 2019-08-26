@@ -100,7 +100,6 @@ public class FavouriteEventMenu {
           System.out.println("Poprawnie dodano wydarzenie do ulubionych");
           correctAdded = true;
           break;
-
         }
       }
       if (correctAdded == false) {
